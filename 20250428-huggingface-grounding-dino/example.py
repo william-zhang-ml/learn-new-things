@@ -7,7 +7,7 @@ My code performs inference using Grounding DINO.
 It then draws the bounding boxes on the image and save it.
 """
 from typing import List
-from PIL import Image
+from PIL import Image, ImageFont
 from PIL.ImageDraw import Draw
 import requests
 import torch
@@ -68,15 +68,20 @@ if __name__ == '__main__':
         ).raw
     )
     draw = Draw(image)
+    font = ImageFont.truetype('arial.ttf', size=20)
     pred = engine(image, ['cat', 'remote control'])
-    for box, _, _ in zip(*pred):
+    for box, _, label in zip(*pred):
         box = box.cpu().long().tolist()
+        draw.rectangle(box, outline='steelblue', width=2)
+
+        # text can be hard to see so draw it on top of a colored box
+        text_box = draw.textbbox([box[0] + 5, box[1]], label, font=font)
         draw.rectangle(
-            xy=[
-                (box[0], box[1]),
-                (box[2], box[3])
-            ],
-            outline='cyan',
-            width=2
+            (
+                text_box[0] - 5, text_box[1] - 5,
+                text_box[2] + 5, text_box[3] + 5
+            ),
+            fill='steelblue'
         )
+        draw.text((box[0] + 5, box[1]), label, align='center', font=font)
     image.save('example-image.png')
