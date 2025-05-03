@@ -1,0 +1,17 @@
+site_name: Example Documentation
+
+# Vibe of the documentation site
+theme:
+  name: material
+
+# Non-core tooling
+plugins:
+  - mkdocstrings:  # automatically generate content from in-code docstrings
+      default_handler: python
+  - search
+
+# Page layout in navigation menu
+nav:
+  - Home: index.md
+  - Modules:
+    - Utils: utils.md
