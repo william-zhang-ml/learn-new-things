@@ -62,7 +62,7 @@ if __name__ == '__main__':
     engine = GroundingDinoEngine()
     image = Image.open(
         requests.get(
-            'https://shop.xroboticsworks.com/wp-content/uploads/2024/09/capacitors.jpg',
+            'https://shop.xroboticsworks.com/wp-content/uploads/2024/09/capacitors.jpg',  # noqa
             stream=True,
             timeout=10
         ).raw
