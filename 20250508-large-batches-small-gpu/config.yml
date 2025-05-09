@@ -1,0 +1,8 @@
+data_root: null
+batch_size: 192
+lr: 1.0e-3
+momentum: 0.9
+weight_decay: 1.0e-4
+device: cuda:0
+segments: 4               # minmax this
+batches_to_accumulate: 4  # set to 1 for no gradient accumulation
